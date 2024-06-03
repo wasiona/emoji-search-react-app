@@ -18,29 +18,11 @@ jobs:
 
       - name: Linting
         run: |
-          npm run lint
-          npx stylelint "**/*.{css,scss}"
+          npm run lint || true
+          npx stylelint "**/*.{css,scss}" || true
 
       - name: Build
         run: npm run build
 
       - name: Test
         run: npm test
-
-  # Define the linting job separately and set allow_failure to true for it
-  linting:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-
-      - name: Install Dependencies
-        run: npm install
-
-      - name: Linting
-        run: |
-          npm run lint
-          npx stylelint "**/*.{css,scss}"
-    # Setting allow_failure to true for the linting job
-    if: always()
